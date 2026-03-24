@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>विद्यार्थी पुस्तक भण्डार | App</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        :root { --red: #b71c1c; --blue: #0d47a1; --yellow: #ffeb3b; }
+        body { font-family: 'Hind', sans-serif; background: #f0f2f5; margin: 0; padding-bottom: 120px; }
+
+        #install-btn {
+            display: none; background: var(--yellow); color: #000;
+            padding: 15px; text-align: center; font-weight: bold;
+            position: sticky; top: 0; z-index: 2000; cursor: pointer;
+        }
+
+        header { background: linear-gradient(135deg, var(--red), var(--blue)); color: white; padding: 30px 20px; text-align: center; }
+        
+        /* Search Bar Style */
+        .search-container { padding: 15px; background: white; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        #searchBox { width: 100%; padding: 12px; border-radius: 25px; border: 1px solid #ddd; font-size: 16px; outline: none; }
+
+        .container { max-width: 1200px; margin: auto; padding: 10px; }
+        .section-title { border-left: 5px solid var(--red); padding-left: 15px; margin: 25px 0 15px; color: var(--blue); }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
+
+        .card { background: white; border-radius: 10px; padding: 12px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: 0.3s; }
+        .card img { width: 100%; height: 150px; object-fit: contain; margin-bottom: 10px; }
+        .card h4 { font-size: 15px; margin: 5px 0; height: 45px; overflow: hidden; }
+        
+        /* WhatsApp Buttons */
+        .wa-btn { background: #25d366; color: white; text-decoration: none; padding: 8px; border-radius: 5px; display: block; font-size: 12px; font-weight: bold; margin-bottom: 5px; }
+        .wa-btn.alt { background: #128C7E; }
+
+        footer { position: fixed; bottom: 0; width: 100%; background: white; border-top: 2px solid var(--red); padding: 10px; text-align: center; font-size: 14px; z-index: 1000; }
+        .footer-num { display: block; color: var(--blue); font-weight: bold; text-decoration: none; margin: 2px 0; }
+    </style>
+</head>
+<body>
+
+    <div id="install-btn" onclick="installApp()">📲 विद्यार्थी बुक्स एप्प इनस्टॉल करें</div>
+
+    <header>
+        <h1>विद्यार्थी पुस्तक भण्डार</h1>
+        <p>बदलापुर, जौनपुर (डिग्री कॉलेज के बगल)</p>
+    </header>
+
+    <div class="search-container">
+        <input type="text" id="searchBox" placeholder="किताब या सामान खोजें..." onkeyup="filterBooks()">
+    </div>
+
+    <div class="container">
+
+        <h2 class="section-title">NCERT किताबें</h2>
+        <div class="grid" id="ncert-grid">
+            
+            <div class="card book-item">
+                <img src="https://m.media-amazon.com/images/I/71wYF5g8p+L.jpg" alt="Bhugol 6">
+                <h4>NCERT भूगोल (कक्षा 6)</h4>
+                <a href="https://wa.me/918115710365?text=Mujhe Class 6 Bhugol chahiye" class="wa-btn">अमन: ऑर्डर करें</a>
+                <a href="https://wa.me/918115129041?text=Mujhe Class 6 Bhugol chahiye" class="wa-btn alt">किशन: ऑर्डर करें</a>
+            </div>
+
+            </div>
+
+        <h2 class="section-title">कम्पटीशन बुक्स</h2>
+        <div class="grid" id="comp-grid">
+            </div>
+
+        <h2 class="section-title">स्टेशनरी</h2>
+        <div class="grid" id="stat-grid">
+            </div>
+
+    </div>
+
+    <footer>
+        <p><strong>प्रो: किशन मिश्रा एवं अमन मिश्रा</strong></p>
+        <a href="tel:8115710365" class="footer-num">📞 8115710365</a>
+        <a href="tel:8115129041" class="footer-num">📞 8115129041</a>
+    </footer>
+
+    <script>
+        // PWA Setup
+        let deferredPrompt;
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js');
+            });
+        }
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('install-btn').style.display = 'block';
+        });
+
+        function installApp() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choice) => {
+                    if (choice.outcome === 'accepted') document.getElementById('install-btn').style.display = 'none';
+                });
+            }
+        }
+
+        // Search Filter Function
+        function filterBooks() {
+            let input = document.getElementById('searchBox').value.toLowerCase();
+            let items = document.getElementsByClassName('book-item');
+            
+            for (let i = 0; i < items.length; i++) {
+                let title = items[i].getElementsByTagName('h4')[0].innerText.toLowerCase();
+                if (title.includes(input)) {
+                    items[i].style.display = "block";
+                } else {
+                    items[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+</html>
