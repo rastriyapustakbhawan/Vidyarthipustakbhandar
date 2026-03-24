@@ -1,14 +1,16 @@
-self.addEventListener('install', (e) => {
-  e.waitUntil(
-    caches.open('vidyarthi-v1').then((cache) => cache.addAll([
-      '/',
-      '/index.html',
-    ]))
-  );
-});
-
-self.addEventListener('fetch', (e) => {
-  e.respondWith(
-    caches.match(e.request).then((response) => response || fetch(e.request))
-  );
-});
+{
+  "name": "Vidyarthi Pustak Bhandar",
+  "short_name": "VidyarthiApp",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#b71c1c",
+  "theme_color": "#b71c1c",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3308/3308395.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
