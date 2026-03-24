@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>विद्यार्थी पुस्तक भण्डार - बदलापुर</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --red: #b71c1c;
+            --blue: #0d47a1;
+            --gold: #ffd700;
+        }
+
+        body {
+            font-family: 'Hind', sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* --- Header Section --- */
+        header {
+            background: linear-gradient(45deg, var(--red), var(--blue));
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        header h1 { font-size: 3rem; margin-bottom: 10px; }
+        header p { font-size: 1.2rem; opacity: 0.9; }
+
+        /* --- Category Tabs --- */
+        .category-container {
+            max-width: 1100px;
+            margin: -30px auto 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            padding: 0 20px;
+        }
+
+        .tab-btn {
+            background: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 15px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: 0.3s;
+            border: 2px solid transparent;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .tab-btn i { display: block; font-size: 2rem; margin-bottom: 10px; color: var(--blue); }
+
+        .tab-btn:hover, .tab-btn.active {
+            border-color: var(--gold);
+            transform: translateY(-5px);
+            background: var(--blue);
+            color: white;
+        }
+
+        .tab-btn.active i { color: var(--gold); }
+
+        /* --- Books Display Section --- */
+        .content-section {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+            display: none; /* Initially hidden */
+        }
+
+        .content-section.active { display: block; animation: fadeIn 0.5s ease; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .book-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            text-align: center;
+            border-bottom: 4px solid var(--red);
+        }
+
+        .book-card img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-bottom: 1px solid #eee;
+        }
+
+        .book-card h3 { padding: 15px 10px 5px; font-size: 1.3rem; }
+        .book-card p { color: #666; padding-bottom: 15px; }
+
+        /* --- Contact Info --- */
+        .footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 60px 20px;
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .contact-box {
+            display: inline-block;
+            background: rgba(255,255,255,0.1);
+            padding: 20px 40px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25d366;
+            color: white;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 35px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            text-decoration: none;
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            .category-container { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1 data-aos="fade-down">विद्यार्थी पुस्तक भण्डार एण्ड स्पोर्ट्स सेन्टर</h1>
+        <p data-aos="fade-up">जौनपुर रोड, बदलापुर (डिग्री कॉलेज के बगल)</p>
+        <div style="margin-top: 15px; background: yellow; color: black; display: inline-block; padding: 5px 15px; border-radius: 20px; font-weight: bold;">
+            शुभ आरम्भ: 26 मार्च 2026
+        </div>
+    </header>
+
+    <div class="category-container">
+        <div class="tab-btn active" onclick="openCategory(event, 'stationery')">
+            <i class="fas fa-pen-nib"></i> स्टेशनरी
+        </div>
+        <div class="tab-btn" onclick="openCategory(event, 'competition')">
+            <i class="fas fa-user-graduate"></i> कम्पटीशन बुक्स
+        </div>
+        <div class="tab-btn" onclick="openCategory(event, 'ncert')">
+            <i class="fas fa-book"></i> NCERT किताबें
+        </div>
+        <div class="tab-btn" onclick="openCategory(event, 'school')">
+            <i class="fas fa-school"></i> स्कूल-कॉलेज बुक्स
+        </div>
+    </div>
+
+    <section id="stationery" class="content-section active">
+        <h2 style="text-align:center; margin-bottom:30px;">बेस्ट क्वालिटी स्टेशनरी आइटम्स</h2>
+        <div class="books-grid">
+            <div class="book-card">
+                <img src="https://images.unsplash.com/photo-1516962215378-7fa2e137ae93?w=500" alt="Notebook">
+                <h3>प्रीमियम नोटबुक</h3>
+                <p>क्लासमेट और अन्य ब्रांड्स</p>
+            </div>
+            <div class="book-card">
+                <img src="https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?w=500" alt="Pen">
+                <h3>ब्रांडेड पेन सेट</h3>
+                <p>पार्कर, सेलो और रेनॉल्ड्स</p>
+            </div>
+            <div class="book-card">
+                <img src="https://images.unsplash.com/photo-1585336139118-132f7f21503e?w=500" alt="Geometry">
+                <h3>ज्यामिति बॉक्स (Geometry)</h3>
+                <p>नटराज और अप्सरा</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="competition" class="content-section">
+        <h2 style="text-align:center; margin-bottom:30px;">प्रतियोगी परीक्षाओं की तैयारी</h2>
+        <div class="books-grid">
+            <div class="book-card">
+                <img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=500" alt="SSC">
+                <h3>SSC परीक्षा मार्गदर्शिका</h3>
+                <p>लेटेस्ट सिलेबस के साथ</p>
+            </div>
+            <div class="book-card">
+                <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?w=500" alt="Railway">
+                <h3>रेलवे भर्ती परीक्षा</h3>
+                <p>प्रैक्टिस सेट और साल्व्ड पेपर्स</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="ncert" class="content-section">
+        <h2 style="text-align:center; color: #0d47a1; margin-bottom:30px;">NCERT किताबों पर महा छूट</h2>
+        <div class="books-grid">
+            <div class="book-card">
+                <img src="https://m.media-amazon.com/images/I/81ai2fXpSFL.jpg" alt="Maths">
+                <h3>गणित (कक्षा 6-12)</h3>
+                <p>सभी माध्यमों में उपलब्ध</p>
+            </div>
+            <div class="book-card">
+                <img src="https://m.media-amazon.com/images/I/91M9p9iS-ZL.jpg" alt="Science">
+                <h3>विज्ञान (Science)</h3>
+                <p>नई शिक्षा नीति पर आधारित</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="school" class="content-section">
+        <h2 style="text-align:center; margin-bottom:30px;">स्कूल एवं कॉलेज टेक्स्टबुक्स</h2>
+        <div class="books-grid">
+            <div class="book-card">
+                <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=500" alt="College">
+                <h3>B.A. / B.Sc. / B.Com</h3>
+                <p>डिग्री कॉलेज हेतु सभी किताबें</p>
+            </div>
+            <div class="book-card">
+                <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=500" alt="Primary">
+                <h3>प्राइमरी स्कूल बुक्स</h3>
+                <p>प्राइवेट और सरकारी स्कूलों के लिए</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <h2>प्रो: किशन मिश्रा | अमन मिश्रा</h2>
+        <div class="contact-box">
+            <p><i class="fas fa-map-marker-alt"></i> पता: जौनpur रोड, बदलापुर (डिग्री कॉलेज के बगल)</p>
+            <p><i class="fas fa-phone"></i> मोबाइल: 8115710365, 8115129041</p>
+        </div>
+        <p style="margin-top:30px; opacity:0.5;">Design by Samarth Mishra</p>
+    </footer>
+
+    <a href="https://wa.me/918115710365" class="whatsapp-btn">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+
+        function openCategory(evt, categoryName) {
+            var i, content, tablinks;
+            content = document.getElementsByClassName("content-section");
+            for (i = 0; i < content.length; i++) {
+                content[i].classList.remove("active");
+            }
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            document.getElementById(categoryName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+            
+            // Scroll to content automatically on mobile
+            if(window.innerWidth < 768) {
+                document.getElementById(categoryName).scrollIntoView({behavior: "smooth"});
+            }
+        }
+    </script>
+</body>
+</html>
