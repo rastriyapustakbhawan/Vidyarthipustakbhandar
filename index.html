@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rastriya Pustak Bhawan | App</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;600;700&amp;family=Poppins:wght@300;500;700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        body { font-family: 'Poppins', 'Hind', sans-serif; background-color: #f8fafc; }
+        .glass-card { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); }
+        .gradient-text { background: linear-gradient(to right, #b71c1c, #1d3557); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        #install-prompt { display: none; }
+    </style>
+</head>
+<body class="pb-24">
+
+    <div id="install-prompt" class="fixed top-0 left-0 w-full bg-yellow-400 text-black p-4 text-center font-bold z-50 shadow-lg cursor-pointer animate-bounce" onclick="installApp()">
+        📲 App Install Karein - Fast &amp; Easy!
+    </div>
+
+    <header class="bg-[#1d3557] text-white pt-12 pb-20 px-6 rounded-b-[40px] shadow-2xl">
+        <h1 class="text-3xl font-bold mb-2">Rastriya Pustak Bhawan</h1>
+        <p class="text-blue-200 text-sm">भोला चौराहा, बादशाहपुर रोड, जौनpur</p>
+    </header>
+
+    <main class="px-6 -mt-10">
+        <div class="glass-card p-6 rounded-3xl shadow-xl mb-8">
+            <h2 class="text-xl font-bold gradient-text mb-2">हमारे बारे में</h2>
+            <p class="text-gray-600 text-sm leading-relaxed">
+                Rastriya Pustak Bhawan ek vishwasniya naam hai. Hum aapko NCERT, Competition, aur Stationery ka sabse behtreen collection dete hain.
+            </p>
+        </div>
+
+        <h2 class="text-lg font-bold text-slate-800 mb-4 ml-2">Categories</h2>
+        <div class="grid grid-cols-2 gap-4">
+            
+            <div class="bg-white p-6 rounded-3xl shadow-md border-b-4 border-red-700 text-center transition-transform active:scale-95">
+                <i class="fas fa-book-open text-3xl text-red-700 mb-3"></i>
+                <h3 class="font-bold text-slate-800">NCERT</h3>
+            </div>
+
+            <div class="bg-white p-6 rounded-3xl shadow-md border-b-4 border-blue-800 text-center transition-transform active:scale-95">
+                <i class="fas fa-graduation-cap text-3xl text-blue-800 mb-3"></i>
+                <h3 class="font-bold text-slate-800">Competition</h3>
+            </div>
+
+            <div class="bg-white p-6 rounded-3xl shadow-md border-b-4 border-green-600 text-center transition-transform active:scale-95">
+                <i class="fas fa-pencil-ruler text-3xl text-green-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800">Stationery</h3>
+            </div>
+
+            <div class="bg-white p-6 rounded-3xl shadow-md border-b-4 border-orange-500 text-center transition-transform active:scale-95">
+                <i class="fas fa-university text-3xl text-orange-500 mb-3"></i>
+                <h3 class="font-bold text-slate-800">College</h3>
+            </div>
+
+        </div>
+    </main>
+
+    <nav class="fixed bottom-0 w-full bg-white/90 backdrop-blur-md p-4 border-t border-gray-200 flex justify-around items-center shadow-[0_-5px_15px_rgba(0,0,0,0.05)]">
+        <a href="tel:8115710365" class="flex flex-col items-center text-red-700">
+            <i class="fas fa-phone-alt text-xl"></i>
+            <span class="text-[10px] font-bold mt-1">AMAN</span>
+        </a>
+        <a href="https://wa.me/918115129041" class="bg-green-500 text-white px-6 py-2 rounded-full font-bold shadow-lg flex items-center gap-2">
+            <i class="fab fa-whatsapp"></i> WhatsApp
+        </a>
+        <a href="tel:8115129041" class="flex flex-col items-center text-blue-900">
+            <i class="fas fa-phone-alt text-xl"></i>
+            <span class="text-[10px] font-bold mt-1">KISHAN</span>
+        </a>
+    </nav>
+
+    <script>
+        // PWA Setup
+        let deferredPrompt;
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js');
+        }
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('install-prompt').style.display = 'block';
+        });
+
+        function installApp() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choice) => {
+                    if (choice.outcome === 'accepted') document.getElementById('install-prompt').style.display = 'none';
+                });
+            }
+        }
+    </script>
+
+</body></html>
