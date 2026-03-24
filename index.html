@@ -1,82 +1,96 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>विद्यार्थी पुस्तक भण्डार</title>
+    
     <link rel="manifest" href="manifest.json">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
     <style>
         body { font-family: 'Hind', sans-serif; background-color: #f8fafc; }
-        .category-card { transition: all 0.3s ease; }
+        .category-card { transition: transform 0.2s; cursor: pointer; }
         .category-card:active { transform: scale(0.95); }
+        #install-banner { display: none; }
     </style>
 </head>
 <body class="pb-32">
 
-    <div id="install-btn" class="hidden fixed top-0 w-full bg-yellow-400 p-4 text-center font-bold z-50 shadow-lg cursor-pointer" onclick="installApp()">
+    <div id="install-banner" class="fixed top-0 left-0 w-full bg-yellow-400 text-black p-4 text-center font-bold z-50 shadow-lg cursor-pointer" onclick="installApp()">
         📲 एप्प इनस्टॉल करें (Vidyarthi App)
     </div>
 
-    <header class="bg-[#b71c1c] text-white p-8 text-center rounded-b-[40px] shadow-xl">
+    <header class="bg-[#b71c1c] text-white pt-10 pb-20 px-6 rounded-b-[40px] text-center shadow-2xl">
         <h1 class="text-3xl font-bold">विद्यार्थी पुस्तक भण्डार</h1>
-        <p class="mt-2 text-sm opacity-90">बदलापुर, जौनपुर (डिग्री कॉलेज के पास)</p>
+        <p class="text-sm opacity-90 mt-2">जौनपुर रोड, बदलापुर (डिग्री कॉलेज के बगल)</p>
     </header>
 
-    <main class="p-6">
-        <div class="mb-6">
-            <input type="text" placeholder="किताबें खोजें..." class="w-full p-4 rounded-2xl shadow-md border-none outline-none focus:ring-2 focus:ring-red-600">
-        </div>
-
-        <h2 class="font-bold text-gray-800 text-xl mb-4 border-l-4 border-red-700 pl-3">कैटेगरी</h2>
-        
+    <main class="px-6 -mt-10">
         <div class="grid grid-cols-2 gap-4">
-            <div class="category-card bg-white p-6 rounded-3xl shadow-md text-center border-b-4 border-red-600">
-                <i class="fas fa-book text-3xl text-red-600 mb-2"></i>
-                <h3 class="font-bold">NCERT</h3>
+            
+            <div class="category-card bg-white p-8 rounded-3xl shadow-lg text-center border-b-4 border-green-600">
+                <i class="fas fa-pencil-alt text-4xl text-green-600 mb-3"></i>
+                <h3 class="font-bold text-lg">स्टेशनरी</h3>
             </div>
-            <div class="category-card bg-white p-6 rounded-3xl shadow-md text-center border-b-4 border-blue-800">
-                <i class="fas fa-user-graduate text-3xl text-blue-800 mb-2"></i>
-                <h3 class="font-bold">कम्पटीशन</h3>
+
+            <div class="category-card bg-white p-8 rounded-3xl shadow-lg text-center border-b-4 border-blue-700">
+                <i class="fas fa-user-graduate text-4xl text-blue-700 mb-3"></i>
+                <h3 class="font-bold text-lg">कम्पटीशन बुक्स</h3>
             </div>
+
+            <div class="category-card bg-white p-8 rounded-3xl shadow-lg text-center border-b-4 border-orange-500">
+                <i class="fas fa-university text-4xl text-orange-500 mb-3"></i>
+                <h3 class="font-bold text-lg">स्कूल कॉलेज बुक्स</h3>
+            </div>
+
+            <div class="category-card bg-white p-8 rounded-3xl shadow-lg text-center border-b-4 border-red-700">
+                <i class="fas fa-book text-4xl text-red-700 mb-3"></i>
+                <h3 class="font-bold text-lg">NCERT</h3>
+            </div>
+
         </div>
 
-        <div class="mt-8 bg-white p-6 rounded-3xl shadow-lg">
-            <h3 class="font-bold border-b pb-2 mb-2 text-gray-700">संचालक</h3>
-            <p class="font-semibold text-red-800">किशन मिश्रा एवं अमन मिश्रा</p>
-            <p class="text-sm text-gray-500 mt-1">सभी प्रकार की पुस्तकें एवं स्टेशनरी उपलब्ध।</p>
+        <div class="mt-8 bg-white p-6 rounded-3xl shadow-md border border-gray-100 text-center">
+            <h3 class="font-bold text-gray-700 mb-2">दुकान के संचालक</h3>
+            <p class="text-red-800 font-bold text-lg">किशन मिश्रा एवं अमन मिश्रा</p>
+            <p class="text-gray-500 text-sm mt-1">भोला चौराहा, बदलापुर</p>
         </div>
     </main>
 
-    <nav class="fixed bottom-0 w-full bg-white p-4 flex justify-around items-center border-t shadow-2xl">
-        <a href="tel:8115710365" class="text-center">
-            <i class="fas fa-phone text-red-700 text-xl"></i><br><span class="text-[10px] font-bold">अमन</span>
+    <nav class="fixed bottom-0 w-full bg-white/95 backdrop-blur-md p-4 flex justify-around items-center border-t border-gray-200 shadow-2xl">
+        <a href="tel:8115710365" class="flex flex-col items-center">
+            <i class="fas fa-phone-alt text-red-700 text-xl"></i>
+            <span class="text-[10px] font-bold mt-1 uppercase">अमन</span>
         </a>
-        <a href="https://wa.me/918115129041" class="bg-green-500 text-white px-8 py-3 rounded-full font-bold shadow-lg">
+        <a href="https://wa.me/918115129041" class="bg-green-500 text-white px-8 py-3 rounded-full font-bold shadow-lg flex items-center gap-2">
             <i class="fab fa-whatsapp"></i> ऑर्डर दें
         </a>
-        <a href="tel:8115129041" class="text-center">
-            <i class="fas fa-phone text-blue-800 text-xl"></i><br><span class="text-[10px] font-bold">किशन</span>
+        <a href="tel:8115129041" class="flex flex-col items-center">
+            <i class="fas fa-phone-alt text-blue-800 text-xl"></i>
+            <span class="text-[10px] font-bold mt-1 uppercase">किशन</span>
         </a>
     </nav>
 
     <script>
         let deferredPrompt;
-        if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js'); }
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js'); });
+        }
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault(); deferredPrompt = e;
-            document.getElementById('install-btn').classList.remove('hidden');
+            document.getElementById('install-banner').style.display = 'block';
         });
         function installApp() {
             if (deferredPrompt) {
                 deferredPrompt.prompt();
                 deferredPrompt.userChoice.then((choice) => {
-                    if (choice.outcome === 'accepted') document.getElementById('install-btn').classList.add('hidden');
+                    if (choice.outcome === 'accepted') document.getElementById('install-banner').style.display = 'none';
                 });
             }
         }
     </script>
-
-</body></html>
+</body>
+</html>
