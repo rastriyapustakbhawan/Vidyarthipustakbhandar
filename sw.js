@@ -1,16 +1,38 @@
-{
-  "name": "Vidyarthi Pustak Bhandar",
-  "short_name": "VidyarthiApp",
-  "start_url": "/index.html",
-  "display": "standalone",
-  "background_color": "#b71c1c",
-  "theme_color": "#b71c1c",
-  "icons": [
-    {
-      "src": "https://cdn-icons-png.flaticon.com/512/3308/3308395.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
-  ]
-}
+const CACHE_NAME = "vidyarthi-store-v1";
+
+const urlsToCache = [
+  "./",
+  "./index.html",
+  "./manifest.json"
+];
+
+// Install
+self.addEventListener("install", (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.addAll(urlsToCache);
+    })
+  );
+});
+
+// Activate
+self.addEventListener("activate", (event) => {
+  event.waitUntil(
+    caches.keys().then((keys) =>
+      Promise.all(
+        keys.map((key) => {
+          if (key !== CACHE_NAME) {
+            return caches.delete(key);
+          }
+        })
+      )
+    )
+  );
+});
+
+// Fetch
+self.addEventListener("fetch", (event) => {
+  event.respondWith(
+    fetch(event.request).catch(() => caches.match(event.request))
+  );
+});
