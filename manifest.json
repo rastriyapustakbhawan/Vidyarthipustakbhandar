@@ -1,16 +1,22 @@
 {
-  "name": "Vidyarthi Pustak Bhandar",
-  "short_name": "VidyarthiApp",
-  "start_url": "/index.html",
+  "name": "विद्यार्थी पुस्तक भण्डार",
+  "short_name": "Vidyarthi",
+  "start_url": "index.html",
   "display": "standalone",
   "background_color": "#b71c1c",
   "theme_color": "#b71c1c",
+  "orientation": "portrait",
+  "scope": "./",
   "icons": [
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/3308/3308395.png",
+      "src": "https://cdn-icons-png.flaticon.com/512/3135/3135755.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3135/3135755.png",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     }
   ]
 }
