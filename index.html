@@ -3,144 +3,150 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>विद्यार्थी पुस्तक भण्डार</title>
+<title>विद्यार्थी पुस्तक भण्डार | बदलापुर</title>
 
 <link rel="manifest" href="manifest.json">
 <script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 <style>
-body { font-family: sans-serif; background:#f8fafc; }
-.category-card { transition:0.2s; cursor:pointer; }
-.category-card:active { transform:scale(0.95); }
+body { font-family: 'Hind', sans-serif; background-color: #f8fafc; }
+.category-card { transition: transform 0.2s; cursor: pointer; }
+.category-card:active { transform: scale(0.95); }
 .hidden { display:none; }
+#install-prompt { display:none; }
 </style>
-
 </head>
 
 <body class="pb-32">
 
-<header class="bg-[#b71c1c] text-white p-6 text-center">
-<h1 class="text-2xl font-bold">विद्यार्थी पुस्तक भण्डार</h1>
-<p class="text-sm">बदलापुर, जौनपुर</p>
+<div id="install-prompt" class="fixed top-0 left-0 w-full bg-yellow-400 text-black p-4 text-center font-bold z-50 shadow-lg cursor-pointer" onclick="installApp()">
+📲 एप्प इनस्टॉल करें (Vidyarthi App)
+</div>
+
+<header class="bg-[#b71c1c] text-white pt-10 pb-20 px-6 rounded-b-[40px] text-center shadow-2xl">
+<h1 class="text-3xl font-bold">विद्यार्थी पुस्तक भण्डार</h1>
+<p class="text-sm opacity-90 mt-2 text-white">जौनपुर रोड, बदलापुर (डिग्री कॉलेज के बगल)</p>
 </header>
 
-<!-- HOME -->
-<div id="home" class="p-4">
+<main id="home" class="px-6 -mt-10">
 
-<h2 class="font-bold mb-3">कैटेगरी</h2>
+<div class="mb-6">
+<input type="text" placeholder="किताब या सामान खोजें..." class="w-full p-4 rounded-2xl shadow-lg border-none focus:ring-2 focus:ring-red-600 outline-none">
+</div>
+
+<h2 class="text-xl font-bold text-gray-800 mb-4 border-l-4 border-red-700 pl-3">कैटेगरी</h2>
 
 <div class="grid grid-cols-2 gap-4">
 
-<div onclick="openPage('stationery')" class="category-card bg-white p-6 rounded-xl shadow text-center">✏️ स्टेशनरी</div>
+<div class="category-card bg-white p-6 rounded-3xl shadow-md text-center border-b-4 border-green-600">
+<i class="fas fa-pencil-alt text-3xl text-green-600 mb-2"></i>
+<h3 class="font-bold text-slate-800">स्टेशनरी</h3>
+</div>
 
-<div onclick="openPage('competition')" class="category-card bg-white p-6 rounded-xl shadow text-center">📚 कम्पटीशन</div>
+<div onclick="openCompetition()" class="category-card bg-white p-6 rounded-3xl shadow-md text-center border-b-4 border-blue-700">
+<i class="fas fa-graduation-cap text-3xl text-blue-800 mb-2"></i>
+<h3 class="font-bold text-slate-800">कम्पटीशन बुक्स</h3>
+</div>
 
-<div onclick="openPage('ncert')" class="category-card bg-white p-6 rounded-xl shadow text-center">📖 NCERT</div>
+<div class="category-card bg-white p-6 rounded-3xl shadow-md text-center border-b-4 border-orange-500">
+<i class="fas fa-university text-3xl text-orange-500 mb-2"></i>
+<h3 class="font-bold text-slate-800">स्कूल-कॉलेज बुक्स</h3>
+</div>
 
-<div onclick="openPage('school')" class="category-card bg-white p-6 rounded-xl shadow text-center">🏫 स्कूल/कॉलेज</div>
-
+<div class="category-card bg-white p-6 rounded-3xl shadow-md text-center border-b-4 border-red-700">
+<i class="fas fa-book text-3xl text-red-700 mb-2"></i>
+<h3 class="font-bold text-slate-800">NCERT</h3>
 </div>
 
 </div>
 
-<!-- SCHOOL PAGE -->
-<div id="school" class="hidden p-4">
-<button onclick="goBack()" class="mb-4 bg-red-600 text-white px-4 py-2 rounded">⬅ वापस</button>
-
-<h2 class="font-bold mb-3">स्कूल / कॉलेज बुक्स</h2>
-
-<div class="bg-white p-6 rounded-xl shadow text-center">
-<p class="text-gray-600 font-bold">📚 जल्द ही उपलब्ध होगा</p>
+<div class="mt-8 bg-white p-6 rounded-3xl shadow-lg border border-gray-100 text-center">
+<h3 class="font-bold text-gray-700 border-b pb-2 mb-3">संचालक</h3>
+<p class="text-red-800 font-bold text-lg">किशन मिश्रा एवं अमन मिश्रा</p>
+<p class="text-gray-500 text-sm mt-1">बदलापुर, जौनपुर</p>
 </div>
 
-</div>
+</main>
 
-<!-- STATIONERY -->
-<div id="stationery" class="hidden p-4">
-<button onclick="goBack()" class="mb-4 bg-red-600 text-white px-4 py-2 rounded">⬅ वापस</button>
+<!-- COMPETITION PAGE -->
+<div id="competitionPage" class="hidden px-6 mt-6">
 
-<h2 class="font-bold mb-3">स्टेशनरी</h2>
+<button onclick="goBack()" class="mb-4 bg-red-700 text-white px-4 py-2 rounded-xl shadow">
+⬅ वापस जाएं
+</button>
+
+<h2 class="text-xl font-bold text-gray-800 mb-4 border-l-4 border-blue-700 pl-3">
+कम्पटीशन बुक्स
+</h2>
 
 <div class="grid grid-cols-2 gap-4">
 
-<div class="bg-white p-3 rounded shadow text-center">
-<img src="https://m.media-amazon.com/images/I/61LtuGzXeaL.jpg" class="h-28 mx-auto">
-<p class="text-sm font-bold">Cello Pen</p>
-<a href="https://wa.me/918115129041?text=Cello Pen चाहिए" class="bg-green-500 text-white block mt-2 rounded">ऑर्डर</a>
-</div>
+<div class="bg-white p-4 rounded-3xl shadow-md text-center border">
 
-<div class="bg-white p-3 rounded shadow text-center">
-<img src="https://m.media-amazon.com/images/I/71aG+xDKSYL.jpg" class="h-28 mx-auto">
-<p class="text-sm font-bold">Classmate Notebook</p>
-<a href="https://wa.me/918115129041?text=Notebook चाहिए" class="bg-green-500 text-white block mt-2 rounded">ऑर्डर</a>
-</div>
+<img src="https://raw.githubusercontent.com/rastriyapustakbhawan/Vidyarthipustakbhandar/main/2025-1st-zodiac-ventures-paperback-hindi-lucent-s-general-original-imahhdzrgcpv8ufe.jpeg"
+class="h-36 mx-auto mb-2 object-contain rounded-lg">
 
-</div>
-</div>
+<h3 class="text-sm font-bold text-slate-800">
+Lucent's General Knowledge 2026 (Hindi)
+</h3>
 
-<!-- COMPETITION -->
-<div id="competition" class="hidden p-4">
-<button onclick="goBack()" class="mb-4 bg-red-600 text-white px-4 py-2 rounded">⬅ वापस</button>
+<a href="https://wa.me/918115129041?text=मुझे%20Lucent%20GK%202026%20चाहिए"
+class="block mt-2 bg-green-500 text-white py-1 rounded-full text-sm">
+ऑर्डर करें
+</a>
 
-<h2 class="font-bold mb-3">कम्पटीशन बुक्स</h2>
-
-<div class="grid grid-cols-2 gap-4">
-
-<div class="bg-white p-3 rounded shadow text-center">
-<img src="https://raw.githubusercontent.com/rastriyapustakbhawan/Vidyarthipustakbhandar/main/2025-1st-zodiac-ventures-paperback-hindi-lucent-s-general-original-imahhdzrgcpv8ufe.jpeg" class="h-28 mx-auto">
-<p class="text-sm font-bold">Lucent GK 2026</p>
-<a href="https://wa.me/918115129041?text=Lucent GK चाहिए" class="bg-green-500 text-white block mt-2 rounded">ऑर्डर</a>
 </div>
 
 </div>
 </div>
 
-<!-- NCERT -->
-<div id="ncert" class="hidden p-4">
-<button onclick="goBack()" class="mb-4 bg-red-600 text-white px-4 py-2 rounded">⬅ वापस</button>
+<nav class="fixed bottom-0 w-full bg-white/95 backdrop-blur-md p-4 flex justify-around items-center border-t shadow-2xl">
 
-<h2 class="font-bold mb-3">NCERT Books</h2>
+<a href="tel:8115710365" class="flex flex-col items-center">
+<i class="fas fa-phone-alt text-red-700 text-xl"></i>
+<span class="text-[10px] font-bold mt-1">अमन</span>
+</a>
 
-<div class="grid grid-cols-2 gap-4">
+<a href="https://wa.me/918115129041" class="bg-green-500 text-white px-8 py-3 rounded-full font-bold shadow-lg flex items-center gap-2">
+<i class="fab fa-whatsapp"></i> ऑर्डर दें
+</a>
 
-<div class="bg-white p-3 rounded shadow text-center">
-<img src="https://ncert.nic.in/textbook/pdf/jesc101.jpg" class="h-28 mx-auto">
-<p class="text-sm font-bold">Class 10 Science</p>
-<a href="#" class="bg-green-500 text-white block mt-2 rounded">ऑर्डर</a>
-</div>
+<a href="tel:8115129041" class="flex flex-col items-center">
+<i class="fas fa-phone-alt text-blue-800 text-xl"></i>
+<span class="text-[10px] font-bold mt-1">किशन</span>
+</a>
 
-<div class="bg-white p-3 rounded shadow text-center">
-<img src="https://ncert.nic.in/textbook/pdf/jemh101.jpg" class="h-28 mx-auto">
-<p class="text-sm font-bold">Class 10 Maths</p>
-<a href="#" class="bg-green-500 text-white block mt-2 rounded">ऑर्डर</a>
-</div>
-
-</div>
-</div>
-
-<!-- NAV -->
-<nav class="fixed bottom-0 w-full bg-white p-4 flex justify-around shadow">
-<a href="tel:8115710365">📞 अमन</a>
-<a href="https://wa.me/918115129041">WhatsApp</a>
-<a href="tel:8115129041">📞 किशन</a>
 </nav>
 
 <script>
-
-function openPage(id){
-document.getElementById("home").classList.add("hidden");
-document.getElementById(id).classList.remove("hidden");
+function openCompetition(){
+document.getElementById("home").style.display="none";
+document.getElementById("competitionPage").classList.remove("hidden");
 }
 
 function goBack(){
-document.querySelectorAll("#stationery,#competition,#ncert,#school").forEach(el=>el.classList.add("hidden"));
-document.getElementById("home").classList.remove("hidden");
+document.getElementById("home").style.display="block";
+document.getElementById("competitionPage").classList.add("hidden");
 }
 
+let deferredPrompt;
 if ('serviceWorker' in navigator) {
 navigator.serviceWorker.register('sw.js');
 }
 
+window.addEventListener('beforeinstallprompt', (e) => {
+e.preventDefault();
+deferredPrompt = e;
+document.getElementById('install-prompt').style.display = 'block';
+});
+
+function installApp(){
+if(deferredPrompt){
+deferredPrompt.prompt();
+}
+}
 </script>
 
 </body>
